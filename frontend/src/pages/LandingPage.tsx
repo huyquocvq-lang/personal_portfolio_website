@@ -148,6 +148,7 @@ export const LandingPage: React.FC = () => {
           { label: 'Home', href: '#home', active: true },
           { label: 'Portfolio', href: '#portfolio' },
           { label: 'About me', href: '#about' },
+          { label: 'Blogs', href: '/blog' },
           { label: 'Testimonials', href: '#testimonials' },
         ]}
       />

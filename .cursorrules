@@ -1,0 +1,45 @@
+# Project Rules
+
+## Documentation Rule
+
+**QUAN TRỌNG**: Khi làm bất kỳ tính năng (feature) nào, BẮT BUỘC phải:
+1. Cập nhật tài liệu mô tả tính năng đó
+2. Lưu tài liệu vào thư mục `_docs/` ở thư mục gốc của project
+3. Tài liệu phải bao gồm:
+   - Mô tả tính năng
+   - Cách sử dụng (nếu có)
+   - API endpoints (nếu là backend feature)
+   - Components/Props (nếu là frontend feature)
+   - Breaking changes (nếu có)
+   - Date/Version của tính năng
+
+**Format tên file**: `YYYY-MM-DD-feature-name.md` hoặc `feature-name.md`
+
+Ví dụ:
+- `_docs/2024-01-15-contact-form.md`
+- `_docs/authentication-api.md`
+
+## ClickUp Task Management Rule
+
+**QUAN TRỌNG**: Sử dụng MCP ClickUp để quản lý tasks:
+
+**Workspace**: "Personal Portfolio"
+
+1. **Lấy task từ ClickUp**: 
+   - Khi bắt đầu làm việc, luôn lấy task từ ClickUp trước
+   - Sử dụng MCP ClickUp tools để fetch task details từ workspace "Personal Portfolio"
+   - Đọc và hiểu requirements từ task description
+
+2. **Cập nhật task vào ClickUp**:
+   - **QUAN TRỌNG**: Trước khi cập nhật hoặc tạo task mới trong ClickUp, LUÔN hỏi user xem có muốn đẩy task (cập nhật hoặc mới) vào ClickUp không
+   - Khi hoàn thành task hoặc có tiến độ, BẮT BUỘC cập nhật status vào ClickUp (sau khi được user xác nhận)
+   - Cập nhật comments/notes về những gì đã làm
+   - Cập nhật time tracking nếu có
+   - Đánh dấu task là "Done" khi hoàn thành
+
+3. **Workflow**:
+   - Start task → Lấy task từ ClickUp → Làm việc → Cập nhật progress → Complete → Update ClickUp
+   - Luôn sync giữa code changes và ClickUp task status
+
+**Lưu ý**: Không bỏ qua bước cập nhật ClickUp, đây là cách để track progress và communicate với team.
+
