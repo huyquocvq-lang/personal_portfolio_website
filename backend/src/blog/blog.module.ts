@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { BlogController } from './blog.controller';
 import { BlogService } from './blog.service';
-import { BlogPost, Tag } from '../entities';
+import { BlogRepository } from '../repositories';
+import { SupabaseConfig } from '../config/supabase.config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BlogPost, Tag])],
   controllers: [BlogController],
-  providers: [BlogService],
+  providers: [BlogService, BlogRepository, SupabaseConfig],
 })
 export class BlogModule {}
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { SectionTitle } from '../components/SectionTitle';
 import { ServiceCard } from '../components/ServiceCard';
@@ -7,7 +6,6 @@ import { AboutSection } from '../components/AboutSection';
 import { ProjectCard } from '../components/ProjectCard';
 import { TestimonialCard } from '../components/TestimonialCard';
 import { ContactForm } from '../components/ContactForm';
-import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
 import { Container } from '../components/Container';
 
@@ -132,27 +130,8 @@ export const LandingPage: React.FC = () => {
     },
   ];
 
-  const socialIcons = [
-    { name: 'Facebook', icon: images.facebook, url: '#' },
-    { name: 'Instagram', icon: images.instagram, url: '#' },
-    { name: 'Twitter', icon: images.twitter, url: '#' },
-    { name: 'LinkedIn', icon: images.linkedin, url: '#' },
-  ];
-
   return (
     <div className="bg-white relative w-full">
-      <Navbar
-        logo={images.logo}
-        onContactClick={handleContactClick}
-        menuItems={[
-          { label: 'Home', href: '#home', active: true },
-          { label: 'Portfolio', href: '#portfolio' },
-          { label: 'About me', href: '#about' },
-          { label: 'Blogs', href: '/blog' },
-          { label: 'Testimonials', href: '#testimonials' },
-        ]}
-      />
-
       <section id="home">
         <Hero
           greeting="Hey, I am John"
@@ -237,19 +216,6 @@ export const LandingPage: React.FC = () => {
       <section id="contact">
         <ContactForm onSubmit={handleFormSubmit} />
       </section>
-
-      <Footer
-        logo={images.logo}
-        menuItems={[
-          { label: 'Home', href: '#home' },
-          { label: 'Portfolio', href: '#portfolio' },
-          { label: 'About me', href: '#about' },
-          { label: 'Contact', href: '#contact' },
-          { label: 'Testimonials', href: '#testimonials' },
-          { label: 'Portfolio', href: '#portfolio' },
-        ]}
-        socialIcons={socialIcons}
-      />
     </div>
   );
 };
