@@ -8,8 +8,12 @@ node_modules/
 
 # Build output
 dist/
-build/
-.vite/
+coverage/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
 # Logs
 *.log
@@ -25,5 +29,3 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Vite
-.vite/

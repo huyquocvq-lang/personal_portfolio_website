@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface ServiceCardProps {
   icon?: string;
@@ -7,7 +8,19 @@ interface ServiceCardProps {
   description: string;
   highlighted?: boolean;
   className?: string;
+  slug?: string;
+  onClick?: () => void;
 }
+
+// Helper function to generate slug from title
+const generateSlug = (title: string): string => {
+  return title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
@@ -16,12 +29,16 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   highlighted = false,
   className = '',
+  slug,
+  onClick,
 }) => {
-  return (
+  const skillSlug = slug || generateSlug(title);
+  const cardContent = (
     <div
-      className={`bg-[#f5fcff] flex flex-col gap-6 md:gap-8 items-start p-6 md:p-8 rounded-lg md:rounded-xl ${
+      className={`bg-[#f5fcff] flex flex-col gap-6 md:gap-8 items-start p-6 md:p-8 rounded-lg md:rounded-xl transition-all duration-200 ${
         highlighted ? 'border-b-4 border-[#5e3bee]' : ''
-      } ${className}`}
+      } ${onClick || slug ? 'cursor-pointer hover:shadow-lg hover:scale-[1.02]' : ''} ${className}`}
+      onClick={onClick}
     >
       <div className="flex flex-col gap-6 md:gap-8 items-start w-full">
         {icon && (
@@ -46,5 +63,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       </div>
     </div>
   );
+
+  if (slug || (!onClick && title)) {
+    return (
+      <Link to={`/skill/${skillSlug}`} className="block w-full">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 

@@ -145,7 +145,7 @@ export class BlogService {
       const reloaded = await this.blogRepository.findOneById(created.id);
       if (reloaded) {
         return this.mapToDetailDto(reloaded, Language.VI);
-      }
+    }
     }
 
     return this.mapToDetailDto(created, Language.VI);

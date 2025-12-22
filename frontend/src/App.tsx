@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { LandingPage } from './pages';
 import { BlogListPage } from './pages/BlogListPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
+import { SkillDetailPage } from './pages/SkillDetailPage';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 
@@ -50,11 +51,12 @@ function AppContent() {
         menuItems={menuItems}
       />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/blog" element={<BlogListPage />} />
-          <Route path="/blog/:slug" element={<BlogDetailPage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/blog" element={<BlogListPage />} />
+        <Route path="/blog/:slug" element={<BlogDetailPage />} />
+        <Route path="/skill/:slug" element={<SkillDetailPage />} />
+      </Routes>
       </main>
       <Footer
         logo={images.logo}

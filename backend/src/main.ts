@@ -1,11 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { config } from 'dotenv';
 import { AppModule } from './app.module';
+
+// Load environment variables
+config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  
   // Enable CORS
   app.enableCors({
     origin: true,

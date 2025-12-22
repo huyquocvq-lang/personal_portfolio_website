@@ -84,3 +84,48 @@ export const blogApi = {
   },
 };
 
+export interface Skill {
+  id: string;
+  title: string;
+  description: string;
+  icon_url: string | null;
+  highlighted: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RelatedProject {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string | null;
+  link_url: string | null;
+}
+
+export interface SkillDetail extends Skill {
+  related_projects: RelatedProject[];
+}
+
+export interface SkillListResponse {
+  data: Skill[];
+}
+
+export const skillApi = {
+  async getSkills(lang: 'vi' | 'en' = 'vi'): Promise<SkillListResponse> {
+    const response = await fetch(`${API_BASE_URL}/skills?lang=${lang}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch skills');
+    }
+    return response.json();
+  },
+
+  async getSkillBySlug(slug: string, lang: 'vi' | 'en' = 'vi'): Promise<SkillDetail> {
+    const response = await fetch(`${API_BASE_URL}/skills/slug/${slug}?lang=${lang}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch skill');
+    }
+    return response.json();
+  },
+};
+

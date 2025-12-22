@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hero } from '../components/Hero';
 import { SectionTitle } from '../components/SectionTitle';
 import { ServiceCard } from '../components/ServiceCard';
@@ -8,6 +8,7 @@ import { TestimonialCard } from '../components/TestimonialCard';
 import { ContactForm } from '../components/ContactForm';
 import { Button } from '../components/Button';
 import { Container } from '../components/Container';
+import { skillApi, Skill } from '../services/api';
 
 // Image URLs from Figma (these would be replaced with actual image imports)
 const images = {
@@ -33,7 +34,37 @@ const images = {
   arrow: 'https://www.figma.com/api/mcp/asset/deb0af08-f713-48e8-b5c7-b57c75fdccdf',
 };
 
+// Helper function to generate slug from title
+const generateSlug = (title: string): string => {
+  return title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 export const LandingPage: React.FC = () => {
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [skillsLoading, setSkillsLoading] = useState(true);
+
+  useEffect(() => {
+    loadSkills();
+  }, []);
+
+  const loadSkills = async () => {
+    try {
+      const response = await skillApi.getSkills('vi');
+      setSkills(response.data);
+    } catch (error) {
+      console.error('Failed to load skills:', error);
+      // Fallback to empty array on error
+      setSkills([]);
+    } finally {
+      setSkillsLoading(false);
+    }
+  };
+
   const handleContactClick = () => {
     const contactSection = document.getElementById('contact');
     contactSection?.scrollIntoView({ behavior: 'smooth' });
@@ -47,34 +78,6 @@ export const LandingPage: React.FC = () => {
     console.log('Form submitted:', data);
     // Handle form submission
   };
-
-  const services = [
-    {
-      icon: images.productChain,
-      title: 'Strategy & Direction',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.',
-      highlighted: true,
-    },
-    {
-      icon: images.tag,
-      title: 'Branding & Logo',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.',
-    },
-    {
-      icon: images.featherPen1,
-      title: 'UI & UX Design',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.',
-    },
-    {
-      icon: images.featherPen2,
-      title: 'Webflow Development',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.',
-    },
-  ];
 
   const projects = [
     {
@@ -153,9 +156,26 @@ export const LandingPage: React.FC = () => {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 items-start w-full">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
+            {skillsLoading ? (
+              <div className="col-span-full text-center py-8">
+                <p className="text-gray-600">Loading skills...</p>
+              </div>
+            ) : skills.length > 0 ? (
+              skills.map((skill) => (
+                <ServiceCard
+                  key={skill.id}
+                  icon={skill.icon_url || undefined}
+                  title={skill.title}
+                  description={skill.description}
+                  highlighted={skill.highlighted}
+                  slug={generateSlug(skill.title)}
+                />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-gray-600">No skills available</p>
+              </div>
+            )}
           </div>
         </Container>
       </section>

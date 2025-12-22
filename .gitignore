@@ -6,3 +6,13 @@ dist/
 *.db
 *.sqlite
 *.sqlite3
+
+# Backend specific
+backend/.env
+backend/dist/
+backend/coverage/
+
+# Frontend specific
+frontend/.env
+frontend/dist/
+frontend/build/

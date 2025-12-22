@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "sync:entities": "ts-node scripts/sync-entities.ts",
-    "validate:schema": "ts-node scripts/validate-schema.ts"
+    "validate:schema": "ts-node scripts/validate-schema.ts",
+    "seed:data": "ts-node scripts/seed-test-data.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -29,6 +30,7 @@
     "@supabase/supabase-js": "^2.89.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
+    "dotenv": "^17.2.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "slugify": "^1.6.6",

@@ -5,14 +5,25 @@
  *   npm run validate:schema
  */
 
+import { config } from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://tixmpgpsfflupbyyuvfg.supabase.co';
-const SUPABASE_KEY =
-  process.env.SUPABASE_ANON_KEY ||
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeG1wZ3BzZmZsdXBieXl1dmZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU0MzA1NzYsImV4cCI6MjA3MTAwNjU3Nn0.wyOSUU1DBg9Yp9z-6NmcxPRx2Z6x_3G5Svh7bvcONKA';
+// Load environment variables
+config({ path: path.join(__dirname, '../.env') });
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error('Error: SUPABASE_URL and SUPABASE_ANON_KEY or SUPABASE_SERVICE_ROLE_KEY are required');
+  process.exit(1);
+}
+
+// TypeScript: After validation, we know these are strings
+const supabaseUrl: string = SUPABASE_URL;
+const supabaseKey: string = SUPABASE_KEY;
 
 interface ValidationResult {
   table: string;
@@ -21,7 +32,7 @@ interface ValidationResult {
 }
 
 async function validateSchema() {
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const supabase = createClient(supabaseUrl, supabaseKey);
   const results: ValidationResult[] = [];
 
   // Expected schema from Supabase
